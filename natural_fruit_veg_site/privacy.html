@@ -1,9 +1,135 @@
-
 <!DOCTYPE html>
-<html>
-<head><title>Privacy Policy</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy - Natural Fruit & Vegetable</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      color: #2c7a7b;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .section {
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .section-header {
+      background: #2c7a7b;
+      color: white;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-content {
+      padding: 1rem 1.5rem;
+      display: none;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .section-content.active {
+      display: block;
+    }
+
+    .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .arrow.rotate {
+      transform: rotate(90deg);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
 <body>
-<h1>Privacy Policy</h1>
-<p>Your privacy is important to us. We ensure your data is used only for order and delivery purposes.</p>
+  <h1>Privacy Policy</h1>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Data Collection</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>We collect only necessary information such as your name, contact details, and delivery address to process your orders efficiently.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Data Usage</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>Your data is used exclusively for order processing, delivery coordination, and improving our services. We do not share your personal information with third parties without your consent.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Data Security</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>We implement strict security measures to protect your personal data from unauthorized access or disclosure.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Cookies & Tracking</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>Our app may use cookies to enhance user experience. These cookies do not store personal information and can be managed via your browser settings.</p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Natural Fruit & Vegetable. All rights reserved.
+  </footer>
+
+  <script>
+    function toggleSection(header) {
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.arrow');
+
+      if (content.classList.contains('active')) {
+        content.classList.remove('active');
+        arrow.classList.remove('rotate');
+      } else {
+        content.classList.add('active');
+        arrow.classList.add('rotate');
+      }
+    }
+  </script>
 </body>
 </html>

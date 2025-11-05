@@ -1,9 +1,150 @@
-
 <!DOCTYPE html>
-<html>
-<head><title>Terms & Conditions</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms & Conditions - Natural Fruit & Vegetable</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      color: #2c7a7b;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section {
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .section-header {
+      background: #2c7a7b;
+      color: white;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-content {
+      padding: 1rem 1.5rem;
+      display: none;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .section-content.active {
+      display: block;
+    }
+
+    .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .arrow.rotate {
+      transform: rotate(90deg);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
 <body>
-<h1>Terms & Conditions</h1>
-<p>By using our app, you agree to our service terms and conditions.</p>
+  <h1>Terms & Conditions</h1>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Acceptance of Terms</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>By using the Natural Fruit & Vegetable app, you agree to comply with and be bound by these Terms & Conditions. Please read them carefully before using the service.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Service Use</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>You agree to use the app responsibly and not to misuse the services provided. Any fraudulent or harmful activities are strictly prohibited and may result in termination of access.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Privacy Policy</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>Your privacy is important to us. We collect and use your data in accordance with our Privacy Policy to enhance your experience. By using our app, you consent to this data collection.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Limitation of Liability</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>Natural Fruit & Vegetable is not liable for any damages resulting from the use or inability to use our services. Use the app at your own risk.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Changes to Terms</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>We reserve the right to update or modify these terms at any time. Users will be notified of any significant changes through the app or via email.</p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Natural Fruit & Vegetable. All rights reserved.
+  </footer>
+
+  <script>
+    function toggleSection(header) {
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.arrow');
+
+      if (content.classList.contains('active')) {
+        content.classList.remove('active');
+        arrow.classList.remove('rotate');
+      } else {
+        content.classList.add('active');
+        arrow.classList.add('rotate');
+      }
+    }
+  </script>
 </body>
 </html>

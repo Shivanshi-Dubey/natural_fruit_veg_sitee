@@ -1,9 +1,135 @@
-
 <!DOCTYPE html>
-<html>
-<head><title>Refund & Cancellation Policy</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Refund & Cancellation Policy - Natural Fruit & Vegetable</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      color: #2c7a7b;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .section {
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .section-header {
+      background: #2c7a7b;
+      color: white;
+      padding: 1rem 1.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-content {
+      padding: 1rem 1.5rem;
+      display: none;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    .section-content.active {
+      display: block;
+    }
+
+    .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    .arrow.rotate {
+      transform: rotate(90deg);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
 <body>
-<h1>Refund & Cancellation Policy</h1>
-<p>If items are damaged or incorrect, contact us within 24 hours for refund assistance.</p>
+  <h1>Refund & Cancellation Policy</h1>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Refund Eligibility</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>If you receive damaged, defective, or incorrect items, please contact us within 24 hours of delivery. We will assist you in processing your refund or replacement promptly.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Cancellation Policy</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>Orders can be canceled within 2 hours of placing them. After this period, we may have already begun processing your order, and cancellations might not be possible.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Refund Process</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>Once your refund request is approved, the amount will be processed and refunded to your original payment method within 5-7 business days.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span>Non-Refundable Items</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+    <div class="section-content">
+      <p>Perishable items like fresh fruits and vegetables are generally non-refundable unless damaged or incorrect at delivery.</p>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Natural Fruit & Vegetable. All rights reserved.
+  </footer>
+
+  <script>
+    function toggleSection(header) {
+      const content = header.nextElementSibling;
+      const arrow = header.querySelector('.arrow');
+
+      if (content.classList.contains('active')) {
+        content.classList.remove('active');
+        arrow.classList.remove('rotate');
+      } else {
+        content.classList.add('active');
+        arrow.classList.add('rotate');
+      }
+    }
+  </script>
 </body>
 </html>
