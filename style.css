@@ -1,0 +1,5 @@
+body{margin:0;font-family:sans-serif;background:#fff;color:#000;}
+header{background:#FFC107;padding:15px;display:flex;justify-content:space-between;align-items:center;}
+nav a{margin-left:15px;text-decoration:none;color:#000;font-weight:bold;}
+.hero{padding:60px;text-align:center;background:#2E7D32;color:#fff;}
+footer{text-align:center;padding:20px;background:#f2f2f2;margin-top:40px;}
