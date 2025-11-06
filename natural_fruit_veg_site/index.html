@@ -1,147 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Natural Fruit & Vegetable</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Natural Fruit & Vegetable — Shop</title>
 
 <style>
-body { font-family: Poppins, sans-serif; margin:0; padding:0; background:#f7fdf8; }
-header { background:#2ecc71; padding:18px; text-align:center; color:#fff; font-size:26px; font-weight:bold; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
-.container { max-width:800px; margin:auto; padding:20px; }
-h2 { text-align:center; color:#333; }
-
-.product-card {
-  background:#fff;
-  padding:15px;
-  margin:12px 0;
-  border-radius:10px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border:1px solid #e4e4e4;
-  transition:0.3s;
-}
-.product-card:hover { transform:scale(1.02); }
-
-.qty-selector {
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.qty-btn {
-  background:#2ecc71;
-  border:none;
-  padding:6px 12px;
-  color:white;
-  border-radius:6px;
-  cursor:pointer;
-}
-.qty-btn:hover { background:#27ae60; }
-
-.cart-floating {
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:#2ecc71;
-  color:#fff;
-  padding:14px 18px;
-  border-radius:50px;
-  text-decoration:none;
-  box-shadow:0 4px 10px rgba(0,0,0,0.25);
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:16px;
-}
-.cart-count {
-  background:#fff;
-  color:#2ecc71;
-  padding:2px 7px;
-  border-radius:50%;
-  font-weight:bold;
-}
-
-footer { background:#e8e8e8; padding:15px; text-align:center; margin-top:30px; }
-footer a { text-decoration:none; color:#2ecc71; font-weight:bold; margin:0 6px; }
+  :root{--green:#27ae60;--accent:#2ecc71;--muted:#7f8c8d}
+  body{font-family:Inter, Poppins, Arial; margin:0; background:#f7fdf8; color:#222}
+  header{background:var(--accent); color:#fff; padding:18px; display:flex;align-items:center;justify-content:space-between;gap:12px}
+  header h1{margin:0;font-size:20px}
+  .container{max-width:980px;margin:22px auto;padding:0 18px}
+  .search-row{display:flex;gap:12px;align-items:center;margin-bottom:16px}
+  .search-row input{flex:1;padding:10px;border-radius:10px;border:1px solid #e6f3ea}
+  .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .card{background:#fff;border-radius:12px;padding:14px;border:1px solid #eef7ee;box-shadow:0 6px 18px rgba(34,34,34,0.04);display:flex;flex-direction:column;gap:8px}
+  .card .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .card h3{margin:0;font-size:16px}
+  .price{font-weight:700;color:var(--green)}
+  .actions{display:flex;align-items:center;gap:8px;margin-top:auto}
+  .btn{background:var(--green);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer}
+  .qty-control{display:flex;align-items:center;gap:8px;border:1px solid #e6f3ea;padding:6px 8px;border-radius:8px;background:#fcfff9}
+  .qty-btn{background:none;border:none;font-weight:700;color:var(--green);cursor:pointer;padding:6px 8px;border-radius:6px}
+  .qty-display{min-width:28px;text-align:center;font-weight:700}
+  .floating-cart{position:fixed;top:16px;right:16px;background:var(--accent);color:#fff;padding:10px 14px;border-radius:999px;box-shadow:0 8px 20px rgba(0,0,0,0.12);display:flex;align-items:center;gap:10px;text-decoration:none}
+  .cart-count{background:#fff;color:var(--accent);padding:2px 8px;border-radius:999px;font-weight:700}
+  footer{margin:30px 0;text-align:center;color:var(--muted);font-size:14px}
+  @media (max-width:520px){ header h1{font-size:16px} .product-grid{grid-template-columns:repeat(1,1fr)} }
 </style>
-
 </head>
 <body>
 
-<header>🍃 Natural Fruit & Vegetable 🍃</header>
+<header>
+  <h1>🍃 Natural Fruit & Vegetable</h1>
+  <a class="floating-cart" href="cart.html" id="cartLink">🛒 Cart <span id="cartCount" class="cart-count">0</span></a>
+</header>
 
-<a href="cart.html" class="cart-floating">
-🛒 Cart
-<span id="cartCount" class="cart-count">0</span>
-</a>
+<main class="container">
+  <div class="search-row">
+    <input id="search" placeholder="Search fruits, vegetables, juices..." />
+  </div>
 
-<div class="container">
-<h2>Fresh Available Items</h2>
+  <div id="productGrid" class="product-grid"></div>
 
-<div class="product-card">
-<p>🍎 Apple (1kg)</p>
-<div class="qty-selector">
-<button class="qty-btn" onclick="changeQty('Apple 1kg', -1)">−</button>
-<span id="qty-Apple 1kg">0</span>
-<button class="qty-btn" onclick="changeQty('Apple 1kg', 1)">+</button>
-</div>
-</div>
-
-<div class="product-card">
-<p>🍌 Banana (1 dozen)</p>
-<div class="qty-selector">
-<button class="qty-btn" onclick="changeQty('Banana 1 Dozen', -1)">−</button>
-<span id="qty-Banana 1 Dozen">0</span>
-<button class="qty-btn" onclick="changeQty('Banana 1 Dozen', 1)">+</button>
-</div>
-</div>
-
-<div class="product-card">
-<p>🥕 Carrot (1kg)</p>
-<div class="qty-selector">
-<button class="qty-btn" onclick="changeQty('Carrot 1kg', -1)">−</button>
-<span id="qty-Carrot 1kg">0</span>
-<button class="qty-btn" onclick="changeQty('Carrot 1kg', 1)">+</button>
-</div>
-</div>
-
-</div>
-
-<footer>
-<a href="about.html">About</a> |
-<a href="contact.html">Contact</a> |
-<a href="privacy.html">Privacy</a> |
-<a href="terms.html">Terms</a> |
-<a href="refund.html">Refund</a>
-</footer>
+  <footer>
+    © 2025 Natural Fruit & Vegetable · 2380 Wright Town, Madan Mahal Station Road, Jabalpur · <a href="contact.html">Contact</a>
+  </footer>
+</main>
 
 <script>
-let cart = JSON.parse(localStorage.getItem("cartItems")) || {};
+/*
+  Product shop script
+  - products array: sku, name, price (₹)
+  - cart stored in localStorage as object: { sku: {name,price,qty} }
+  - clicking + when qty=0 adds item; clicking − decreases; UI updates everywhere
+*/
 
-function changeQty(product, change) {
-  cart[product] = (cart[product] || 0) + change;
-  if (cart[product] <= 0) delete cart[product];
-  localStorage.setItem("cartItems", JSON.stringify(cart));
-  updateQtyDisplay();
-  updateCartCount();
+const PRODUCTS = [
+  { sku: 'apple_1kg', name: 'Apple (1 kg)', price: 90 },
+  { sku: 'banana_dozen', name: 'Banana (1 dozen)', price: 45 },
+  { sku: 'carrot_1kg', name: 'Carrot (1 kg)', price: 30 },
+  { sku: 'mango_1ltr', name: 'Mango Juice (1 L)', price: 120 }
+];
+
+const storageKey = 'nfv_cart_v1';
+
+function readCart() {
+  try { return JSON.parse(localStorage.getItem(storageKey)) || {}; }
+  catch(e){ return {}; }
+}
+function writeCart(cart){ localStorage.setItem(storageKey, JSON.stringify(cart)); }
+
+function cartTotalCount() {
+  const cart = readCart(); let total = 0;
+  Object.values(cart).forEach(it => total += Number(it.qty || 0));
+  return total;
 }
 
-function updateQtyDisplay() {
-  for (const product in cart) {
-    document.getElementById("qty-" + product).innerText = cart[product];
+function updateFloatingCount() {
+  document.getElementById('cartCount').innerText = cartTotalCount();
+}
+
+// Render product grid
+function renderProducts(list) {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = '';
+  const cart = readCart();
+
+  list.forEach(p => {
+    const currentQty = cart[p.sku] ? cart[p.sku].qty : 0;
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="top">
+        <h3>${p.name}</h3>
+        <div class="price">₹${p.price}</div>
+      </div>
+      <div style="color:#666;font-size:14px">Fresh & natural — locally sourced</div>
+    `;
+
+    const actions = document.createElement('div');
+    actions.className = 'actions';
+
+    // qty control
+    const qtyControl = document.createElement('div');
+    qtyControl.className = 'qty-control';
+    qtyControl.innerHTML = `
+      <button class="qty-btn" data-sku="${p.sku}" data-change="-1">−</button>
+      <div class="qty-display" id="display-${p.sku}">${currentQty}</div>
+      <button class="qty-btn" data-sku="${p.sku}" data-change="1">+</button>
+    `;
+
+    actions.appendChild(qtyControl);
+    card.appendChild(actions);
+    grid.appendChild(card);
+  });
+
+  // attach event listeners for all qty buttons
+  document.querySelectorAll('.qty-btn').forEach(btn => {
+    btn.onclick = () => {
+      const sku = btn.getAttribute('data-sku');
+      const change = Number(btn.getAttribute('data-change'));
+      changeQty(sku, change);
+    };
+  });
+}
+
+// change qty helper (sku, +1 or -1)
+function changeQty(sku, delta) {
+  const product = PRODUCTS.find(p => p.sku === sku);
+  if (!product) return;
+  const cart = readCart();
+  const prevQty = cart[sku] ? cart[sku].qty : 0;
+  const nextQty = prevQty + delta;
+  if (nextQty <= 0) {
+    delete cart[sku];
+  } else {
+    cart[sku] = { name: product.name, price: product.price, qty: nextQty };
   }
+  writeCart(cart);
+  // update UI
+  const display = document.getElementById('display-' + sku);
+  if (display) display.innerText = cart[sku] ? cart[sku].qty : 0;
+  updateFloatingCount();
 }
 
-function updateCartCount() {
-  let total = 0;
-  for (let p in cart) total += cart[p];
-  document.getElementById("cartCount").innerText = total;
-}
+// search handling
+document.getElementById('search').addEventListener('input', (e) => {
+  const q = e.target.value.toLowerCase().trim();
+  if (!q) renderProducts(PRODUCTS);
+  else renderProducts(PRODUCTS.filter(p => p.name.toLowerCase().includes(q) || p.sku.includes(q)));
+});
 
-updateQtyDisplay();
-updateCartCount();
+// initial render
+renderProducts(PRODUCTS);
+updateFloatingCount();
+
+// when page loads, sync displays (in case cart changed elsewhere)
+window.addEventListener('storage', () => {
+  renderProducts(PRODUCTS);
+  updateFloatingCount();
+});
 </script>
-
 </body>
 </html>
