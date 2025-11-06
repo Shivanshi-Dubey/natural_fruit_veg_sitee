@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Checkout</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header><h1>Checkout</h1></header>
+
+<form class="checkout-form">
+  <label>Name:</label>
+  <input required type="text" placeholder="Your Name">
+
+  <label>Phone:</label>
+  <input required type="tel" placeholder="Your Phone Number">
+
+  <label>Delivery Address:</label>
+  <textarea required placeholder="Complete Address"></textarea>
+
+  <h3>Payment Method</h3>
+
+  <label><input type="radio" checked name="pay" value="cod"> Cash on Delivery (COD)</label><br>
+
+  <label><input type="radio" name="pay" value="paytm"> Pay using Paytm UPI</label><br><br>
+
+  <button class="btn">Place Order</button>
+</form>
+
+<footer>
+  <p>Delivery Available in Jabalpur Only 🚚</p>
+</footer>
+
+</body>
+</html>
