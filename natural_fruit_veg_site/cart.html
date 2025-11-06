@@ -1,160 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Your Cart — Natural Fruit & Vegetable</title>
+<meta charset="UTF-8">
+<title>Your Cart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-  :root{--accent:#2ecc71;--muted:#7f8c8d}
-  body{font-family:Inter, Poppins, Arial;margin:0;background:#f7fdf8;color:#222}
-  header{background:var(--accent);color:#fff;padding:16px;display:flex;justify-content:space-between;align-items:center}
-  header h2{margin:0;font-size:18px}
-  main{max-width:980px;margin:18px auto;padding:0 18px}
-  .cart-list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
-  .item{background:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;border:1px solid #eef7ee}
-  .info{display:flex;flex-direction:column;gap:6px}
-  .info .name{font-weight:700}
-  .price{color:var(--accent);font-weight:700}
-  .controls{display:flex;gap:10px;align-items:center}
-  .qty-btn{background:transparent;border:1px solid #e6f3ea;padding:6px 10px;border-radius:8px;cursor:pointer}
-  .remove{background:#e74c3c;color:#fff;padding:8px 10px;border-radius:8px;border:none;cursor:pointer}
-  .summary{margin-top:18px;background:#fff;padding:14px;border-radius:12px;border:1px solid #eef7ee}
-  .total-row{display:flex;justify-content:space-between;align-items:center;font-size:18px;font-weight:700}
-  .checkout{display:block;margin-top:12px;padding:12px 14px;background:#e67e22;color:#fff;text-align:center;border-radius:10px;text-decoration:none;font-weight:700}
-  .empty{padding:40px;text-align:center;color:var(--muted);background:#fff;border-radius:12px;border:1px dashed #e6f3ea}
-  footer{margin:30px 0;text-align:center;color:var(--muted)}
+body { font-family:Poppins, sans-serif; margin:0; background:#f7fff7; }
+header { background:#2ecc71; padding:18px; text-align:center; color:white; font-size:22px; font-weight:600; }
+
+.cart-item {
+  background:white; padding:14px; margin:12px auto;
+  border-radius:10px; border:1px solid #ddd;
+  max-width:700px; display:flex; justify-content:space-between;
+}
+.total-box { text-align:center; font-size:22px; font-weight:bold; margin-top:20px; }
+.checkout-btn {
+  background:#27ae60; color:white; padding:14px 22px; text-decoration:none;
+  display:block; width:220px; margin:25px auto; border-radius:8px; text-align:center;
+}
 </style>
 </head>
 <body>
 
-<header>
-  <h2>🛒 Your Cart</h2>
-  <a href="index.html" style="color:white;text-decoration:none;font-weight:700">Continue Shopping</a>
-</header>
+<header>🛒 Your Cart</header>
 
-<main>
-  <div id="cartList" class="cart-list"></div>
+<div id="cartItems"></div>
 
-  <div id="summary" class="summary" style="display:none">
-    <div class="total-row"><span>Subtotal</span><span>₹<span id="subtotal">0</span></span></div>
-    <div style="margin-top:8px;color:#666">Delivery & taxes will be calculated at checkout.</div>
-    <a id="checkoutBtn" class="checkout" href="checkout.html">Proceed to Checkout</a>
-  </div>
+<p class="total-box">Total: ₹<span id="totalAmount">0</span></p>
 
-  <div id="emptyState" class="empty" style="display:none">Your cart is empty. Add fresh items from the shop.</div>
-</main>
-
-<footer>© 2025 Natural Fruit & Vegetable · Jabalpur</footer>
+<a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
 
 <script>
-const storageKey = 'nfv_cart_v1';
+let cart = JSON.parse(localStorage.getItem("cartItems")) || {};
+let productPrices = { "Apple 1kg":120, "Banana 1 Dozen":50, "Carrot 1kg":40, "Onion 1kg":35, "Tomato 1kg":30 };
 
-function readCart(){ return JSON.parse(localStorage.getItem(storageKey)) || {}; }
-function writeCart(cart){ localStorage.setItem(storageKey, JSON.stringify(cart)); }
+function displayCart(){
+  let container = document.getElementById("cartItems");
+  container.innerHTML = "";
+  let total = 0;
 
-function formatINR(n){ return Number(n).toLocaleString('en-IN'); }
-
-function renderCart(){
-  const cart = readCart();
-  const listEl = document.getElementById('cartList');
-  listEl.innerHTML = '';
-  const keys = Object.keys(cart);
-  if(keys.length === 0){
-    document.getElementById('summary').style.display = 'none';
-    document.getElementById('emptyState').style.display = 'block';
-    updateFloatingCount(); return;
+  for(let item in cart){
+    let qty = cart[item];
+    let price = productPrices[item] * qty;
+    total += price;
+    container.innerHTML += `
+      <div class="cart-item">
+        <span>${item}</span>
+        <span>Qty: ${qty} | ₹${price}</span>
+      </div>`;
   }
-  document.getElementById('summary').style.display = 'block';
-  document.getElementById('emptyState').style.display = 'none';
-
-  let subtotal = 0;
-  keys.forEach(sku => {
-    const it = cart[sku];
-    const itemEl = document.createElement('div');
-    itemEl.className = 'item';
-    itemEl.innerHTML = `
-      <div class="info">
-        <div class="name">${it.name}</div>
-        <div style="color:#666;font-size:13px">₹${it.price} each</div>
-      </div>
-      <div class="controls">
-        <button class="qty-btn" data-op="dec" data-sku="${sku}">−</button>
-        <div style="min-width:36px;text-align:center;font-weight:700">${it.qty}</div>
-        <button class="qty-btn" data-op="inc" data-sku="${sku}">+</button>
-        <div style="width:12px"></div>
-        <div class="price">₹${it.price * it.qty}</div>
-        <button class="remove" data-sku="${sku}">Remove</button>
-      </div>
-    `;
-    listEl.appendChild(itemEl);
-    subtotal += it.price * it.qty;
-  });
-
-  document.getElementById('subtotal').innerText = formatINR(subtotal);
-
-  // attach events
-  document.querySelectorAll('.qty-btn').forEach(b => {
-    b.onclick = () => {
-      const sku = b.getAttribute('data-sku');
-      const op = b.getAttribute('data-op'); // inc or dec
-      changeQty(sku, op === 'inc' ? 1 : -1);
-    };
-  });
-  document.querySelectorAll('.remove').forEach(b => {
-    b.onclick = () => {
-      const sku = b.getAttribute('data-sku');
-      removeItem(sku);
-    };
-  });
-
-  updateFloatingCount();
+  document.getElementById("totalAmount").innerText = total;
 }
-
-function changeQty(sku, delta){
-  const cart = readCart();
-  if(!cart[sku]) return;
-  cart[sku].qty = Math.max(0, cart[sku].qty + delta);
-  if(cart[sku].qty === 0) delete cart[sku];
-  writeCart(cart);
-  renderCart();
-}
-
-function removeItem(sku){
-  const cart = readCart();
-  if(cart[sku]) delete cart[sku];
-  writeCart(cart);
-  renderCart();
-}
-
-function cartTotalCount(){
-  const cart = readCart(); let total = 0;
-  Object.values(cart).forEach(it => total += Number(it.qty || 0));
-  return total;
-}
-function updateFloatingCount(){
-  const el = document.getElementById('cartCount');
-  if(el) el.innerText = cartTotalCount();
-}
-
-// show floating count in header (if present from index)
-(function attachFloatingCountToHeader(){
-  // header may be from index; create an element if not present
-  if(!document.getElementById('cartCount')){
-    const a = document.createElement('a');
-    a.href = 'cart.html';
-    a.style.color = 'white';
-    a.style.fontWeight = '700';
-    a.innerText = 'Cart';
-    a.id = 'cartFloatHeader';
-    document.querySelector('header').appendChild(a);
-  }
-})();
-
-renderCart();
-
-// sync on storage events (if user changes on another tab)
-window.addEventListener('storage', renderCart);
+displayCart();
 </script>
+
 </body>
 </html>
