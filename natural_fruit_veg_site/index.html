@@ -5,34 +5,84 @@
 <title>Natural Fruit & Vegetable</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body { font-family: Arial, Helvetica, sans-serif; margin:0; padding:0; background:#f8f8f8; }
-header { background:#2ecc71; padding:18px; text-align:center; color:#fff; font-size:24px; font-weight:bold; }
-.container { max-width:700px; margin:auto; padding:20px; }
-.product-card { background:#fff; padding:15px; margin:10px 0; border-radius:8px; display:flex; justify-content:space-between; align-items:center; }
-button { background:#2ecc71; border:none; padding:10px 14px; border-radius:6px; color:#fff; cursor:pointer; }
+body { font-family: Poppins, sans-serif; margin:0; padding:0; background:#f7fdf8; }
+header { background:#2ecc71; padding:18px; text-align:center; color:#fff; font-size:26px; font-weight:bold; box-shadow:0 2px 5px rgba(0,0,0,0.2); }
+.container { max-width:800px; margin:auto; padding:20px; }
+
+h2 { text-align:center; color:#333; }
+
+.product-card {
+  background:#fff;
+  padding:15px;
+  margin:12px 0;
+  border-radius:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid #e4e4e4;
+  transition:0.3s;
+}
+.product-card:hover { transform:scale(1.02); }
+
+button {
+  background:#2ecc71;
+  border:none;
+  padding:9px 14px;
+  border-radius:6px;
+  color:#fff;
+  cursor:pointer;
+  font-size:14px;
+}
 button:hover { background:#27ae60; }
-.cart-btn { width:100%; margin-top:20px; }
+
+.cart-floating {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#2ecc71;
+  color:#fff;
+  padding:14px 18px;
+  border-radius:50px;
+  text-decoration:none;
+  box-shadow:0 4px 10px rgba(0,0,0,0.25);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:16px;
+}
+.cart-count {
+  background:#fff;
+  color:#2ecc71;
+  padding:2px 7px;
+  border-radius:50%;
+  font-weight:bold;
+}
 footer { background:#e8e8e8; padding:15px; text-align:center; margin-top:30px; }
-a { text-decoration:none; color:#2ecc71; font-weight:bold; }
+footer a { text-decoration:none; color:#2ecc71; font-weight:bold; margin:0 6px; }
 </style>
 
 <script>
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
 
 function addToCart(item) {
  cart.push(item);
- alert(item + " added to cart ✅");
  localStorage.setItem("cartItems", JSON.stringify(cart));
+ updateCartCount();
 }
+
+function updateCartCount() {
+ document.getElementById("cartCount").innerText = cart.length;
+}
+
+window.onload = updateCartCount;
 </script>
 
 </head>
 <body>
 
-<header>Natural Fruit & Vegetable</header>
+<header>🍃 Natural Fruit & Vegetable 🍃</header>
 
 <div class="container">
-
 <h2>Fresh Available Items</h2>
 
 <div class="product-card">
@@ -50,11 +100,9 @@ function addToCart(item) {
 <button onclick="addToCart('Carrot 1kg')">Add to Cart</button>
 </div>
 
-<a href="checkout.html">
-<button class="cart-btn">Proceed to Checkout 🛒</button>
-</a>
-
 </div>
+
+<a href="cart.html" class="cart-floating">🛒 Cart <span id="cartCount" class="cart-count">0</span></a>
 
 <footer>
 <a href="about.html">About</a> |
