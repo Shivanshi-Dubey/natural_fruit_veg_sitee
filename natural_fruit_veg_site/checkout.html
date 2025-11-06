@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Checkout</title>
-<link rel="stylesheet" href="style.css">
+<title>Checkout - Natural Fruit & Vegetable</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { font-family: Arial, sans-serif; background:#f8f8f8; padding:20px; }
+.container { background:white; padding:20px; max-width:500px; margin:auto; border-radius:8px; }
+input, textarea { width:100%; padding:10px; margin:8px 0; border-radius:6px; border:1px solid #ccc; }
+button { width:100%; background:#2ecc71; border:none; padding:12px; color:white; font-size:16px; border-radius:6px; cursor:pointer; }
+button:hover { background:#27ae60; }
+</style>
+<script>
+function placeOrder(){
+ alert("Order Placed ✅ We will contact you soon!");
+}
+</script>
 </head>
 <body>
 
-<header><h1>Checkout</h1></header>
+<div class="container">
+<h2>Checkout</h2>
 
-<form class="checkout-form">
-  <label>Name:</label>
-  <input required type="text" placeholder="Your Name">
+<label>Your Name</label>
+<input type="text" required>
 
-  <label>Phone:</label>
-  <input required type="tel" placeholder="Your Phone Number">
+<label>Phone Number</label>
+<input type="tel" required>
 
-  <label>Delivery Address:</label>
-  <textarea required placeholder="Complete Address"></textarea>
+<label>Delivery Address</label>
+<textarea rows="3" required></textarea>
 
-  <h3>Payment Method</h3>
-
-  <label><input type="radio" checked name="pay" value="cod"> Cash on Delivery (COD)</label><br>
-
-  <label><input type="radio" name="pay" value="paytm"> Pay using Paytm UPI</label><br><br>
-
-  <button class="btn">Place Order</button>
-</form>
-
-<footer>
-  <p>Delivery Available in Jabalpur Only 🚚</p>
-</footer>
+<button onclick="placeOrder()">Place Order</button>
+</div>
 
 </body>
 </html>
