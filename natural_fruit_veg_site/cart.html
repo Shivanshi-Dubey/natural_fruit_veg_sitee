@@ -3,67 +3,118 @@
 <head>
 <meta charset="UTF-8">
 <title>Your Cart - Natural Fruit & Vegetable</title>
-<link rel="stylesheet" href="style.css">
-<script src="script.js" defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-header {
-  background: #2ecc71;
-  color: white;
-  text-align: center;
-  padding: 15px;
-}
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-  font-weight: 600;
-}
-#cartItems {
-  padding: 20px;
-}
+body { font-family: Poppins, sans-serif; background:#f7fdf8; margin:0; }
+header { background:#2ecc71; padding:18px; text-align:center; color:#fff; font-size:24px; font-weight:bold; }
+nav a { color:#fff; text-decoration:none; margin-left:10px; font-weight:bold; }
+
+#cartItems { padding:20px; max-width:700px; margin:auto; }
+
 .cart-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px;
-  background: #fff;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  background:#fff;
+  padding:14px;
+  margin:12px 0;
+  border-radius:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid #e3e3e3;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+  transition:0.2s;
 }
+.cart-item:hover { transform:scale(1.02); }
+
+.remove-btn {
+  background:#e74c3c;
+  border:none;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:13px;
+}
+.remove-btn:hover { background:#c0392b; }
+
+.total-box {
+  text-align:right;
+  font-size:20px;
+  font-weight:bold;
+  margin-top:20px;
+  color:#333;
+}
+
 .checkout-section {
-  text-align: center;
-  margin: 20px;
+  text-align:center;
+  margin:30px 0;
 }
-.checkout-section .btn {
-  background: #27ae60;
-  padding: 12px 20px;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 18px;
+
+.checkout-btn {
+  background:#27ae60;
+  padding:14px 22px;
+  color:white;
+  text-decoration:none;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:bold;
 }
-.checkout-section .btn:hover {
-  background: #1e8c4d;
-}
+.checkout-btn:hover { background:#1e8c4d; }
 </style>
+
 </head>
 <body>
 
 <header>
-  <h1>Your Cart</h1>
+  🛒 Your Cart
   <nav>
-    <a href="products.html">Continue Shopping</a>
+    <a href="index.html">Continue Shopping</a>
   </nav>
 </header>
 
-<div id="cartItems">
-  <!-- Items loaded dynamically from script.js -->
-</div>
+<div id="cartItems"></div>
+
+<p class="total-box">Total: ₹<span id="totalAmount">0</span></p>
 
 <div class="checkout-section">
-  <a href="checkout.html" class="btn">Proceed to Checkout</a>
+  <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
 </div>
+
+<script>
+let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+function displayCart() {
+  const cartContainer = document.getElementById("cartItems");
+  cartContainer.innerHTML = "";
+  let total = 0;
+
+  if(cart.length === 0){
+    cartContainer.innerHTML = "<h3 style='text-align:center;color:#777;'>Your cart is empty 🛍️</h3>";
+    document.getElementById("totalAmount").innerText = 0;
+    return;
+  }
+
+  cart.forEach((item, index) => {
+    cartContainer.innerHTML += `
+      <div class="cart-item">
+        <span>${item}</span>
+        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+      </div>
+    `;
+    total += 50; // TEMP PRICE → update later or make dynamic
+  });
+
+  document.getElementById("totalAmount").innerText = total;
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cartItems", JSON.stringify(cart));
+  displayCart();
+}
+
+displayCart();
+</script>
 
 </body>
 </html>
