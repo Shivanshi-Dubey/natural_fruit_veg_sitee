@@ -12,7 +12,7 @@
       color: #333;
       line-height: 1.6;
       padding: 20px;
-      max-width: 600px;
+      max-width: 700px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -21,65 +21,58 @@
       color: #2c7a7b;
       text-align: center;
       margin-bottom: 1rem;
+      font-size: 2rem;
     }
 
-    .contact-info {
+    .contact-box {
       background: white;
-      border-radius: 8px;
       padding: 1.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       font-size: 1.1rem;
-      line-height: 1.8;
     }
 
-    .contact-item {
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-    }
+    .item { margin-bottom: 1rem; }
+    .label { font-weight: 600; color: #2c7a7b; }
 
-    .icon {
-      color: #2c7a7b;
-      margin-right: 10px;
-      font-weight: bold;
-      font-size: 1.2rem;
-      min-width: 30px;
-      text-align: center;
-    }
-
-    a {
-      color: #2c7a7b;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
+    a { color: #2c7a7b; text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
     footer {
       text-align: center;
       margin-top: 2rem;
-      font-size: 0.9rem;
-      color: #777;
+      font-size: 0.95rem;
+      color: #555;
+      padding-top: 10px;
+      border-top: 1px solid #ddd;
     }
   </style>
 </head>
 <body>
-  <h1>Contact Us</h1>
-  
-  <div class="contact-info">
-    <div class="contact-item">
-      <div class="icon">📧</div>
-      <div>Email: <a href="mailto:naturalfruitveg@gmail.com">naturalfruitveg@gmail.com</a></div>
-    </div>
-    <div class="contact-item">
-      <div class="icon">📞</div>
-      <div>Phone: <a href="tel:+919109493750">+91 91094 93750</a></div>
-    </div>
+
+<h1>Contact Us</h1>
+
+<div class="contact-box">
+  <div class="item"><span class="label">Business Name:</span> Natural Fruit & Vegetable</div>
+
+  <div class="item"><span class="label">Address:</span><br>
+    2380 Wright Town,<br>
+    Madan Mahal Station Road,<br>
+    Jabalpur, Madhya Pradesh - 482002
   </div>
 
-  <footer>
-    &copy; 2025 Natural Fruit & Vegetable. All rights reserved.
-  </footer>
+  <div class="item"><span class="label">Phone:</span> <a href="tel:+919109493750">+91 9109493750</a></div>
+
+  <div class="item"><span class="label">Email:</span> 
+    <a href="mailto:naturalfruitveg@gmail.com">naturalfruitveg@gmail.com</a>
+  </div>
+
+  <div class="item"><span class="label">Service Area:</span> Jabalpur (Home Delivery Available)</div>
+</div>
+
+<footer>
+  © 2025 Natural Fruit & Vegetable. All Rights Reserved.
+</footer>
+
 </body>
 </html>
